@@ -1,7 +1,7 @@
 <?php
 namespace src\Services;
 
-trait Reponse {
+trait Response {
 
   /**
    * La méthode render permet d'afficher une vue. Elle peut prendre en second paramètre des données à afficher dans la vue.

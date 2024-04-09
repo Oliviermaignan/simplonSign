@@ -1,7 +1,7 @@
 <?php
 
 use src\Repositories\UsersRepository;
-use src\controllers\HomeController;
+use src\Controllers\HomeController;
 
 
 $HomeController = new HomeController;
@@ -9,13 +9,18 @@ $HomeController = new HomeController;
 $route = $_SERVER['REDIRECT_URL'];
 $methode = $_SERVER['REQUEST_METHOD'];
 
+
+if (!isset($_SESSION['connecté'])) {
+    $route = HOME_URL;
+}
+
 switch ($route) {
     case HOME_URL:
-        if (isset($_SESSION['connecté'])) {
-        header('location: '.HOME_URL.'dashboard');
-        die;
-        } else {
-        $HomeController->index();
+        if ($methode == "GET") {
+            $HomeController->index();
+        }
+        if ($methode == "POST") {
+            $HomeController->auth();
         }
         break;
     case HOME_URL.'dashboard':
