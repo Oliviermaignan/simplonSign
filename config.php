@@ -1,8 +1,8 @@
 <?php
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'simlonsign');
-define('DB_USER', 'simlonsign');
-define('DB_PWD', 'simlonsign');
+define('DB_NAME', 'simplonsign');
+define('DB_USER', 'simplonsign');
+define('DB_PWD', 'simplonsign');
 
 define('HOME_URL', '/');
 

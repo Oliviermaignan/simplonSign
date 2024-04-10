@@ -1,13 +1,44 @@
-document.getElementById('buttonSubmitConnexion').addEventListener('click', function (e){
-    e.preventDefault();
+let HTMLContainer = document.querySelector('#HTMLContainer');
 
-    fetch(HOME_URL,{
-        method: "POST",
+if (document.getElementById('buttonSubmitConnexion')) {
+    document.getElementById('buttonSubmitConnexion').addEventListener('click', (e)=>{
+        e.preventDefault();
+        appelFetchConnexion();
+    })
+}
+
+function appelFetchConnexion(){
+    //recup des inputs
+    let emailInput = document.getElementById('emailConnexionInput').value;
+    let passwordInput = document.getElementById('passwordConnexionInput').value;
+    
+    //construction de l'objet avec la data
+    let dataObj = {
+        "email": emailInput,
+        "password": passwordInput,
+    };
+
+    
+    let JSONdata = JSON.stringify(dataObj);
+
+    fetch(HOME_URL, {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify('Ma première requête')
+        body: JSONdata
     })
-    .then(response => response.json())
-    .then(data => console.log(data));
-})
+    .then(response => response.text())
+    .then(data => {
+        if (data) {
+            HTMLContainer.innerHTML = data;
+        } else {
+            console.log('La requête a echouée');
+        }
+    })
+    .catch(error => {
+        console.error('Erreur lors de la requête fetch:', error);
+    });
+}
+
+
