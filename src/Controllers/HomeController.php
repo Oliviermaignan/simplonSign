@@ -42,7 +42,9 @@ class HomeController
                 $_SESSION['user']['role'] = $user->getRole();
                 $_SESSION['user']['promoName'] = $user->getPromoName();
             }
-    
+            
+
+            var_dump($user);
             include_once __DIR__  . "/../Views/dashboard.php";
         }
     }

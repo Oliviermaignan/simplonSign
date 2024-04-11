@@ -43,4 +43,23 @@ class UsersRepository
     $result = $query->fetch();
     return $result;
     }
+
+    public function getPromoByUserId($id){
+        $query = $this->Db->prepare("
+                SELECT 
+                b6_promo.name AS NOM_PROMO
+                FROM 
+                    b6_promo
+                LEFT JOIN
+                    b6_relation_users_promo ON b6_promo.id = b6_relation_users_promo.promo_id
+                LEFT JOIN
+                    b6_users ON b6_relation_users_promo.users_id=b6_users.id
+                WHERE
+                    b6_users.id = :id;
+        ");
+        $query->bindParam(':id', $id);
+        $query->execute();
+        $result = $query->fetch(PDO::FETCH_OBJ);
+        return $result;
+    }
 }
