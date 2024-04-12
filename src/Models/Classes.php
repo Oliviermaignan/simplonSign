@@ -2,6 +2,7 @@
 namespace src\Models;
 
 use src\Services\Hydratation;
+use dateTime;
 
 class Classes {
     private $id;
@@ -17,9 +18,20 @@ class Classes {
 
 	public function getName() {return $this->name;}
 
-	public function getStartTime() {return $this->startTime;}
+	public function getStartTime($format = 'Y-m-d H:i:s'): dateTime {
+		// Si $this->startTime est déjà un objet DateTime, vous pouvez le retourner directement
+		if ($this->startTime instanceof DateTime) {
+			return 'instance of dateTime';
+		}
+	
+		// Si $this->startTime est une chaîne de caractères représentant une date,
+		// vous pouvez la convertir en objet DateTime puis la formater
+		return (new DateTime($this->startTime));
+	}
 
-	public function getEndTime() {return $this->endTime;}
+	public function getEndTime() {
+		return $this->endTime;
+	}
 
 	public function getPromoID() {return $this->promoID;}
 
@@ -29,7 +41,13 @@ class Classes {
 
 	public function setName( $name): void {$this->name = $name;}
 
-	public function setStartTime( $startTime): void {$this->startTime = $startTime;}
+	public function setStartTime(string | DateTime $startTime): void {
+		if ($startTime instanceof DateTime) {
+            $this->startTime = $startTime;
+          } else {
+            $this->startTime = new DateTime($startTime);
+          }
+	}
 
 	public function setEndTime( $endTime): void {$this->endTime = $endTime;}
 

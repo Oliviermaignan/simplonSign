@@ -7,9 +7,8 @@ if(isset($_SESSION['connected'])) {
     $email = $_SESSION['user']['email'];
     $activated = $_SESSION['user']['activated'];
     $role = $_SESSION['user']['role'];
-    $promoName = $_SESSION['user']['promoName'];
+    $promoName = $_SESSION['user']['promoName'];    
 }
- var_dump($promoName->NOM_PROMO);   
 if ($role === 'student') {
     ?>
     
@@ -52,26 +51,19 @@ if ($role === 'student') {
             <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Utilisateurs</button>
         </li>
     </ul>
-    <div class="tab-content w-50 p-3 m-auto" id="myTabContent">
-    <div class="tab-pane fade show active d-flex flex-column mb-2 " id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+    <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active w-50 p-3 m-auto d-flex flex-column justify-content-center" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
         
     <!-- container cours après midi -->
-    <div class="container-md bg-secondary-subtle m-auto mt-5 mb-2 rounded d-flex justify-content-around">
-        <div class="m-auto">
-            <h3>données en dur - après midi</h3>
+    <?php foreach ($todayClasses as $class): ?>
+    <div class="container-md bg-secondary-subtle mt-5 mb-5 rounded d-flex justify-content-around">
+        <div class="d-flex flex-column mt-2 justify-content-center">
+            <h3><?= $class->getName() . '-' . $class->getStartTime()->format('d/m/Y');?></h3>
             <p>15 participants.es</p>
         </div>
-        <button type="button" class="btn btn-primary m-auto ">Valider présence</button>
+        <button type="button" class="btn btn-primary mt-auto mb-auto">Valider présence</button>
     </div>
-
-    <!-- container cours matin -->
-    <div class="container-md bg-secondary-subtle m-auto mt-5 mb-5 rounded d-flex justify-content-around">
-        <div class="m-auto">
-            <h3>données en dur - matin</h3>
-            <p>15 participants.es</p>
-        </div>
-        <button type="button" class="btn btn-primary m-auto ">Valider présence</button>
-    </div>
+    <?php endforeach; ?>
 
     </div>
     <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">

@@ -2,7 +2,9 @@
 
 namespace src\Controllers;
 
+use DateTime;
 use src\Models\Users;
+use src\Repositories\ClassesRepository;
 use src\Services\Response;
 use src\Repositories\UsersRepository;
 
@@ -43,8 +45,10 @@ class HomeController
                 $_SESSION['user']['promoName'] = $user->getPromoName();
             }
             
+            //recupération des cours de la journée
+            $classesRepo = new ClassesRepository();
+            $todayClasses = $classesRepo->getClassesByDay(new DateTime());
 
-            var_dump($user);
             include_once __DIR__  . "/../Views/dashboard.php";
         }
     }
