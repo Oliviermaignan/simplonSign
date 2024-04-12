@@ -1,3 +1,4 @@
+import { presenceValidationButton } from "./presenceValidationButton.js";
 let HTMLContainer = document.querySelector('#HTMLContainer');
 
 if (document.getElementById('buttonSubmitConnexion')) {
@@ -32,6 +33,7 @@ function appelFetchConnexion(){
     .then(data => {
         if (data) {
             HTMLContainer.innerHTML = data;
+            presenceValidationButton();
         } else {
             console.log('La requête a echouée');
         }

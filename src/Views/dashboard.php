@@ -8,6 +8,9 @@ if(isset($_SESSION['connected'])) {
     $activated = $_SESSION['user']['activated'];
     $role = $_SESSION['user']['role'];
     $promoName = $_SESSION['user']['promoName'];    
+
+    //première lettre en majuscule pour passer à l'id
+    $roleForId = ucfirst($role);
 }
 if ($role === 'student') {
     ?>
@@ -61,7 +64,7 @@ if ($role === 'student') {
             <h3><?= $class->getName() . '-' . $class->getStartTime()->format('d/m/Y');?></h3>
             <p>15 participants.es</p>
         </div>
-        <button type="button" class="btn btn-primary mt-auto mb-auto">Valider présence</button>
+        <button type="button" class="btn btn-primary mt-auto mb-auto" id="presenceValidation<?=$class->getName().$roleForId?>">Valider présence</button>
     </div>
     <?php endforeach; ?>
 

@@ -48,7 +48,7 @@ class HomeController
             //recupération des cours de la journée
             $classesRepo = new ClassesRepository();
             $todayClasses = $classesRepo->getClassesByDay(new DateTime());
-
+            
             include_once __DIR__  . "/../Views/dashboard.php";
         }
     }
