@@ -38,4 +38,17 @@ class ClassesRepository
         return $result;
     }
 
+    public function createCodeForClass($promoId, $name){
+        $query = $this->Db->prepare ("
+                                        UPDATE b6_Classes
+                                        SET code = LPAD(FLOOR(RAND() * 99999), 5, '0')
+                                        WHERE promo_id = :promo_id
+                                        AND name = :name;
+                                        AND DATE(startTime) = CURDATE();
+                                    ");
+        $query->bindValue(':promo_id', $promoId);
+        $query->bindValue(':name', $name);
+        $query->execute();
+    }
+
 }
