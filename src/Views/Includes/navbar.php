@@ -8,9 +8,9 @@
         if(isset($_SESSION) && !empty($_SESSION)){
             if($_SESSION['connected'] === true){
          ?>
-        <button class="btn btn-warning me-5" href="#" id="connexion">Déconnexion</button>
+        <button class="btn btn-warning me-5" id="connexion">Déconnexion</button>
         <?php }} else { ?>
-        <button class="btn btn-light me-5" href="#" id="connexion">Connexion</button>
+        <button class="btn btn-light me-5" id="connexion">Connexion</button>
         <?php } ?> 
   </div>
 </nav>

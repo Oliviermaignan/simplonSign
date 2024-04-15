@@ -38,17 +38,41 @@ class ClassesRepository
         return $result;
     }
 
-    public function createCodeForClass($promoId, $name){
+    public function getTodayAMClass() {
+        $date = new DateTime();
+        $formattedDate = $date->format('Y-m-d');
+        $query = $this->Db->prepare ("
+                                        SELECT * FROM b6_classes
+                                        WHERE DATE(startTime) = :formattedDate
+                                        AND name = 'AM';
+                                    ");
+    $query->bindValue(':formattedDate', $formattedDate);
+    $query -> setFetchMode(PDO::FETCH_CLASS, Classes::class);
+    $query->execute();
+    $result = $query->fetch();
+    return $result;
+    }
+
+    public function createCodeForClass($promoId){
         $query = $this->Db->prepare ("
                                         UPDATE b6_Classes
-                                        SET code = LPAD(FLOOR(RAND() * 99999), 5, '0')
+                                        SET code = LPAD(10000 + FLOOR(RAND() * 99999), 5, '0')
                                         WHERE promo_id = :promo_id
-                                        AND name = :name;
-                                        AND DATE(startTime) = CURDATE();
+                                        AND DATE(startTime) = CURDATE()
+                                        AND TIME(NOW()) BETWEEN TIME(startTime) AND TIME(endTime);
                                     ");
         $query->bindValue(':promo_id', $promoId);
-        $query->bindValue(':name', $name);
         $query->execute();
     }
 
+    public function getNowClassCode(){
+        $query = $this->Db->prepare ("  SELECT b6_classes.code FROM `b6_classes`
+                                        WHERE  DATE(startTime) = CURDATE()
+                                        AND TIME(NOW()) BETWEEN TIME(startTime) AND TIME(endTime);"
+                                    );
+        $query -> setFetchMode(PDO::FETCH_OBJ);
+        $query->execute();
+        $result = $query->fetch();
+        return $result;
+    }
 }

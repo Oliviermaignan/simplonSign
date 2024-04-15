@@ -1,16 +1,17 @@
 <?php
 
-use src\Repositories\UsersRepository;
+use src\Controllers\ClassesController;
 use src\Controllers\HomeController;
-
+use src\Repositories\ClassesRepository;
 
 $HomeController = new HomeController;
+$ClassesController = new ClassesController;
 
 $route = $_SERVER['REDIRECT_URL'];
 $methode = $_SERVER['REQUEST_METHOD'];
 
 
-if (!isset($_SESSION['connecté'])) {
+if (!isset($_SESSION['connected'])) {
     $route = HOME_URL;
 }
 
@@ -23,9 +24,16 @@ switch ($route) {
             $HomeController->auth();
         }
         break;
-    case HOME_URL.'dashboard':
-        echo 'vous êtes sur la dashboard';
-
+    case HOME_URL . 'creationCode':
+        $ClassesController->createCode();
+        break;
+    case HOME_URL . 'deconnexion':
+        $HomeController->session_destroy();
+        break;
+    case HOME_URL . 'studentPresenceValidation':
+        //ici mettre de nouvelles methodes recup les données
+        //ca va necessité de crée la class pour la table intermediaire
+        break;
     default:
         $HomeController->page404();
         break;

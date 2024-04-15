@@ -33,7 +33,11 @@ class HomeController
             $passwordFromDb = $user->getPassword();
     
             $isConnected = password_verify($password, $passwordFromDb);
-    
+            
+            //recupération des cours de la journée
+            $classesRepo = new ClassesRepository();
+            $todayClasses = $classesRepo->getClassesByDay(new DateTime());
+
             if($isConnected){
                 $_SESSION['connected'] = true;
                 $_SESSION['user']['id'] = $user->getId();
@@ -44,12 +48,16 @@ class HomeController
                 $_SESSION['user']['role'] = $user->getRole();
                 $_SESSION['user']['promoName'] = $user->getPromoName();
             }
-            
-            //recupération des cours de la journée
-            $classesRepo = new ClassesRepository();
-            $todayClasses = $classesRepo->getClassesByDay(new DateTime());
-            
+
             include_once __DIR__  . "/../Views/dashboard.php";
+        }
+    }
+
+    public function session_destroy(){
+        if(isset($_SESSION['connected']) && $_SESSION['connected'] === true){
+            if (session_destroy()){
+                echo true;
+            };
         }
     }
 
