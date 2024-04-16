@@ -62,4 +62,20 @@ class UsersRepository
         $result = $query->fetch(PDO::FETCH_OBJ);
         return $result;
     }
+
+    public function getPromoIdByUserId($id){
+        $query = $this->Db->prepare("
+                                    SELECT 
+                                        b6_users.promo_id
+                                    FROM 
+                                        b6_users
+                                    WHERE
+                                        b6_users.id = :id;
+                                    ");
+        $query->bindParam(':id', $id);
+        $query->execute();
+        $result = $query->fetch(PDO::FETCH_OBJ);
+        return $result;
+    }
+
 }

@@ -75,4 +75,17 @@ class ClassesRepository
         $result = $query->fetch();
         return $result;
     }
+    public function getNowClassCodeByPromo($promoId){
+        $query = $this->Db->prepare ("  SELECT b6_classes.code 
+                                        FROM `b6_classes`
+                                        WHERE DATE(startTime) = CURDATE()
+                                        AND TIME(NOW()) BETWEEN TIME(startTime) AND TIME(endTime)
+                                        AND promo_id = :promo_id;"
+                                    );
+        $query->bindParam(':promo_id', $promoId);
+        $query -> setFetchMode(PDO::FETCH_OBJ);
+        $query->execute();
+        $result = $query->fetch();
+        return $result;
+    }
 }

@@ -7,7 +7,7 @@ let displayCodeContainerAM = document.querySelector('.displayCode.AM');
 let displayCodeContainerPM = document.querySelector('.displayCode.PM');
 
     if (displayCodeContainerAM || displayCodeContainerPM){
-        if (PMTeacherValidation.innerText === 'Non dispo'){
+        if (PMTeacherValidation.innerText === 'non disponible'){
             PMTeacherValidation.classList.add("btn-secondary");
             PMTeacherValidation.disabled = true;
         } 

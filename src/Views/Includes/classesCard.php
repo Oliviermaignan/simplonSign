@@ -3,7 +3,6 @@ $currentTime = new DateTime('now', new DateTimeZone('Europe/Paris'));
 $currentHour = $currentTime->format('H');
 $noon = new DateTime('12:00:00');
 $noon = $noon->format('H');
-
 ?>
     <div class="container-md bg-secondary-subtle mt-5 mb-5 rounded d-flex justify-content-between">
         <div class="d-flex flex-column mt-2 ms-3 justify-content-center">
@@ -13,12 +12,10 @@ $noon = $noon->format('H');
 
         <!-- ici attention un peu de logique en fonction de l'heure le code saffiche dans la bonne div -->
         
-        <div class="displayCode
-        <?php if ($currentTime < $noon){
-            if ($class->getName()==='AM'){echo 'AM';}}
-            if ($currentTime > $noon){
-            if ($class->getName()==='PM'){echo 'PM';};
-        }?>
+        <div class="displayCode <?php   
+                if ($class->getName()==='AM'){echo 'AM';}
+                 if ($class->getName()==='PM'){echo 'PM';};
+                ?>
 
         d-flex align-items-center">
             <?php

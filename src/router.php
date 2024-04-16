@@ -31,7 +31,7 @@ switch ($route) {
         $HomeController->session_destroy();
         break;
     case HOME_URL . 'studentPresenceValidation':
-        //ici mettre de nouvelles methodes recup les données
+        $ClassesController->checkStudentCode();
         //ca va necessité de crée la class pour la table intermediaire
         break;
     default:

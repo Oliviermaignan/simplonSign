@@ -35,8 +35,34 @@ class ClassesController
             echo $classesRepo->getNowClassCode()->code;
         } else {
             'pas de code dispo';
-        }
+        }   
+    }
+
+    public function checkStudentCode(){
+
+
+        $data = file_get_contents('php://input');
+        if (!empty($data)){
+            $data = json_decode($data);
         
+            $codeInput = (int) filter_var( $data->code, FILTER_SANITIZE_NUMBER_FLOAT);
+            
+            if ($_SESSION['connected']){
+                $id = $_SESSION['user']['id'];
+            }
+
+            $usersRepo = new UsersRepository;
+            $promoId = $usersRepo->getPromoIdByUserId($id);
+            $classesRepo = new ClassesRepository;
+            $promoClassCode = $classesRepo->getNowClassCodeByPromo($promoId->promo_id);
+            $promoClassCode = $promoClassCode->code;
+             
+            if ($promoClassCode === $codeInput){
+                echo 'commencez l"enregistrement presence';
+                //creation d'une class presence avec la date et l'id du statut
+            }
+
+        }
     }
 
 }
