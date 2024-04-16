@@ -26,12 +26,13 @@ switch ($route) {
         break;
     case HOME_URL . 'creationCode':
         $ClassesController->createCode();
+        $ClassesController->createPresenceStatus();
         break;
     case HOME_URL . 'deconnexion':
         $HomeController->session_destroy();
         break;
     case HOME_URL . 'studentPresenceValidation':
-        $ClassesController->checkStudentCode();
+        $ClassesController->updatePresenceStatus();
         //ca va necessité de crée la class pour la table intermediaire
         break;
     default:

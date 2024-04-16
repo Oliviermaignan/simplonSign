@@ -78,4 +78,19 @@ class UsersRepository
         return $result;
     }
 
+    public function getClassesIdByUser($userId){
+        $query =    $this->Db->prepare("
+                        SELECT b6_classes.id as classesId
+                        FROM b6_users 
+                        LEFT JOIN b6_relation_users_promo ON b6_users.id = b6_relation_users_promo.users_id 
+                        LEFT JOIN b6_promo ON b6_relation_users_promo.promo_id = b6_promo.id 
+                        LEFT JOIN b6_classes ON b6_promo.id = b6_classes.promo_id 
+                        WHERE TIME(NOW()) BETWEEN TIME(b6_classes.startTime) AND TIME(b6_classes.endTime)
+                        AND DATE(b6_classes.startTime) = CURDATE() AND b6_users.id = :id;
+                    ");
+        $query->bindParam(':id', $userId);
+        $query->execute();
+        $result = $query->fetch(PDO::FETCH_OBJ);
+        return $result;
+    }
 }

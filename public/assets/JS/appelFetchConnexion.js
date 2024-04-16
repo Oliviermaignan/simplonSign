@@ -1,5 +1,5 @@
 import { presenceValidationButton } from "./codeGenerator.js";
-import { fetchDeconnexion } from "./fetchDeconnexion";
+import { fetchDeconnexion } from "./fetchDeconnexion.js";
 import { studentPresenceValidationBtn } from "./studentPresenceValidation.js";
 export function appelFetchConnexion(){
     //recup des inputs

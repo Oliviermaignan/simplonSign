@@ -88,4 +88,5 @@ class ClassesRepository
         $result = $query->fetch();
         return $result;
     }
+
 }
