@@ -67,4 +67,17 @@ class PresenceStatusRepository
         $query->bindValue(':userId', $userId);
         $query->execute();
     }
+
+    public function checkingLate($userId){
+        $query = $this->Db->prepare ("  
+            SELECT *
+            FROM b6_relation_users_classes
+            WHERE b6_relation_users_classes.user_id = :userId;
+        ");
+        $query->bindParam(':userId', $userId);
+        $query->execute();
+        $query -> setFetchMode(PDO::FETCH_ASSOC);
+        $result = $query->fetchAll();
+        return $result;
+    }
 }

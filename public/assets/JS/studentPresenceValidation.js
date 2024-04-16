@@ -18,10 +18,13 @@ export function studentPresenceValidationBtn (){
                 },
                 body: JSONdata
             })
-            .then(response => response.text())
+            .then(response => response.json())
             .then(data => {
                 if (data) {
-                    console.log(data);
+                    const numberOfElements = data.numberOfElements;
+                    const late = data.late;
+                    console.log(numberOfElements + late);
+                    //reprendre ici pour afficher le toast
                 } else {
                     console.log('La requête a echouée');
                 }

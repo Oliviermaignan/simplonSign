@@ -78,21 +78,38 @@ class ClassesController
             $usersRepo = new UsersRepository;
             $promoId = $usersRepo->getPromoIdByUserId($id);
             $classesRepo = new ClassesRepository;
-            $promoClassCode = $classesRepo->getNowClassCodeByPromo($promoId->promo_id);
-            $promoClassCode = $promoClassCode->code;
-             
-            if ($promoClassCode === $codeInput){
-                echo 'commencez l"enregistrement presence';
-               
-                //création de authenticationId
-                //ici il faut faire un traitement par rapport à l'heure
-                //ressortir le cours qui correspond a maintenant
-                //comparer avec le temps actuel 
+            $newClass = $classesRepo->getNowClassByPromo($promoId->promo_id);
+            $promoClassCode = $newClass->getCode();
 
+            if ($promoClassCode === $codeInput){
 
                 $presenceStatusRepo = new PresenceStatusRepository();
 
-                $presenceStatusRepo->updateStatus ($authenticationId, $userId);
+                $actualTime = new DateTime();
+
+                $startTime = $newClass->getStartTime();
+                $late = $actualTime->diff($startTime);
+                $lateMin = $late->h * 60 + $late->i;
+
+                if ($lateMin>20){
+                    $presenceStatusRepo->updateStatus (2, $id);
+                    $numberOfLate = $presenceStatusRepo->checkingLate($id);
+                    $numberOfElements = count($numberOfLate);
+                    
+                    $data = array(
+                        'numberOfElements' => $numberOfElements,
+                        'late' => true
+                    );
+                    $jsonOutput = json_encode($data, JSON_PRETTY_PRINT);
+                    echo $jsonOutput;
+
+                } else {
+                    $presenceStatusRepo->updateStatus (1, $id);
+
+                }
+
+
+
             }
 
         }
