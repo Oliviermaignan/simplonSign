@@ -26,7 +26,7 @@ class Classes {
 	
 		// Si $this->startTime est une chaîne de caractères représentant une date,
 		// vous pouvez la convertir en objet DateTime puis la formater
-		return (new DateTime($this->startTime));
+		return (new DateTime($this->startTime, new \DateTimeZone('Europe/Paris')));
 	}
 
 	public function getEndTime() {
@@ -45,7 +45,7 @@ class Classes {
 		if ($startTime instanceof DateTime) {
             $this->startTime = $startTime;
           } else {
-            $this->startTime = new DateTime($startTime);
+            $this->startTime = new DateTime($startTime, new \DateTimeZone('Europe/Paris'));
           }
 	}
 

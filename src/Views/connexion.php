@@ -3,7 +3,7 @@ include_once __DIR__ . "/Includes/header.php";
 include_once __DIR__ . "/Includes/navbar.php"
 ?>
 
-<form class="m-5">
+<form class="m-auto w-25 p-3 mt-5 mb-5">
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label fw-bold">Email*</label>
     <input type="email" class="form-control" id="emailConnexionInput" aria-describedby="emailHelp" value="ol.maignan@gmail.com">

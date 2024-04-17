@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/autoload.php';
 
+date_default_timezone_set('Europe/Paris');
 
 // On démarre la session :
 session_start();

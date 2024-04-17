@@ -3,6 +3,7 @@
 namespace src\Controllers;
 
 use DateTime;
+use DateTimeZone;
 use src\Models\Users;
 use src\Repositories\ClassesRepository;
 use src\Services\Response;
@@ -75,8 +76,13 @@ class ClassesController
                 $id = $_SESSION['user']['id'];
             }
 
+            //recup id et id class selon iduser
             $usersRepo = new UsersRepository;
             $promoId = $usersRepo->getPromoIdByUserId($id);
+            $classId = $usersRepo->getClassesIdByUser($id);
+            $classId = $classId->classesId;
+
+
             $classesRepo = new ClassesRepository;
             $newClass = $classesRepo->getNowClassByPromo($promoId->promo_id);
             $promoClassCode = $newClass->getCode();
@@ -85,17 +91,26 @@ class ClassesController
 
                 $presenceStatusRepo = new PresenceStatusRepository();
 
-                $actualTime = new DateTime();
+                //heure acutelle en france
+                $currentTime = new DateTime('now', new DateTimeZone('Europe/Paris'));
+                $currentTimeStamp = $currentTime->getTimestamp();
+                //heure de debut de cours
+                $startTime = $newClass->getStartTime()->getTimeStamp();
+ 
+                //calcul de la difference
+                $diff = $currentTimeStamp - $startTime;
+                
+                $quinzeMinutesEnSeconde = 15*60;
 
-                $startTime = $newClass->getStartTime();
-                $late = $actualTime->diff($startTime);
-                $lateMin = $late->h * 60 + $late->i;
+                if ($diff>$quinzeMinutesEnSeconde){
 
-                if ($lateMin>20){
-                    $presenceStatusRepo->updateStatus (2, $id);
+                    //update du status de l'étudiant
+                    $presenceStatusRepo->updateStatus (2, $id, $classId);
+
+
                     $numberOfLate = $presenceStatusRepo->checkingLate($id);
                     $numberOfElements = count($numberOfLate);
-                    
+
                     $data = array(
                         'numberOfElements' => $numberOfElements,
                         'late' => true

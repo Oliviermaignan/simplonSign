@@ -22,7 +22,7 @@ class ClassesRepository
     public function getClassesByDay($date = null) {
         // Si aucune date n'est fournie, utiliser la date actuelle
         if ($date === null) {
-            $date = new DateTime();
+            $date = new DateTime('now', new \DateTimeZone('Europe/Paris'));
         }
 
         $formattedDate = $date->format('Y-m-d');
@@ -39,7 +39,7 @@ class ClassesRepository
     }
 
     public function getTodayAMClass() {
-        $date = new DateTime();
+        $date = new DateTime('now', new \DateTimeZone('Europe/Paris'));
         $formattedDate = $date->format('Y-m-d');
         $query = $this->Db->prepare ("
                                         SELECT * FROM b6_classes

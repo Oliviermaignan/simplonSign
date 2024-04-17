@@ -30,7 +30,7 @@ class PresenceStatus {
 		if ($dateTime instanceof DateTime) {
             $this->dateTime = $dateTime;
           } else {
-            $this->dateTime = new DateTime($dateTime);
+            $this->dateTime = new DateTime($dateTime, new \DateTimeZone('Europe/Paris'));
           }
 	}
 

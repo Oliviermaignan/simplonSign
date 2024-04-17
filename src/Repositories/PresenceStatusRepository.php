@@ -56,23 +56,26 @@ class PresenceStatusRepository
     ]);
     }
 
-    public function updateStatus ($authenticationId, $userId){
+    public function updateStatus ($authenticationId, $userId, $classId){
         $query = $this->Db->prepare ("
             UPDATE b6_relation_users_classes
             SET b6_relation_users_classes.authentication_id = :authenticationId
             WHERE user_id = :userId
-            AND DATE(dateTime) = CURDATE();
+            AND DATE(dateTime) = CURDATE()
+            AND classes_id = :classId;
         ");
+        
         $query->bindValue(':authenticationId', $authenticationId);
         $query->bindValue(':userId', $userId);
+        $query->bindValue(':classId', $classId);
         $query->execute();
     }
 
     public function checkingLate($userId){
         $query = $this->Db->prepare ("  
-            SELECT *
-            FROM b6_relation_users_classes
-            WHERE b6_relation_users_classes.user_id = :userId;
+        SELECT *
+        FROM b6_relation_users_classes
+        WHERE b6_relation_users_classes.user_id =:userId and authentication_id = 2;
         ");
         $query->bindParam(':userId', $userId);
         $query->execute();

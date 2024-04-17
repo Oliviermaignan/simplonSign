@@ -39,6 +39,7 @@ if ($role === 'student') {
         </div>
     </form>
     </div>
+    <?php include_once __DIR__ . "/Includes/toast.php"?>
 
 
     <?php
@@ -81,6 +82,9 @@ if ($role === 'student') {
     </div>
 
     </div>
+
+    <?php include_once __DIR__ . "/Includes/toast.php"?>
+
     <?php
 }
 ?>

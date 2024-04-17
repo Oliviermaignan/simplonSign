@@ -1,7 +1,7 @@
 <?php
 $currentTime = new DateTime('now', new DateTimeZone('Europe/Paris'));
 $currentHour = $currentTime->format('H');
-$noon = new DateTime('12:00:00');
+$noon = new DateTime('12:00:00', new \DateTimeZone('Europe/Paris'));
 $noon = $noon->format('H');
 ?>
     <div class="container-md bg-secondary-subtle mt-5 mb-5 rounded d-flex justify-content-between">

@@ -1,3 +1,4 @@
+import { lateToast } from "./showLateToast";
 export function studentPresenceValidationBtn (){
     let StudentPresenceValidationBtn = document.getElementById('StudentPresenceValidation');
     if(StudentPresenceValidationBtn){
@@ -21,10 +22,12 @@ export function studentPresenceValidationBtn (){
             .then(response => response.json())
             .then(data => {
                 if (data) {
-                    const numberOfElements = data.numberOfElements;
+                    const numberOfLate = data.numberOfElements;
                     const late = data.late;
-                    console.log(numberOfElements + late);
-                    //reprendre ici pour afficher le toast
+
+                    //affichage du toast
+                    lateToast(late, numberOfLate);
+
                 } else {
                     console.log('La requête a echouée');
                 }

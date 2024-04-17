@@ -6,4 +6,4 @@ define('DB_PWD', 'simplonsign');
 
 define('HOME_URL', '/');
 
-define('DB_INITIALIZED', TRUE);
+define('DB_INITIALIZED', true);
