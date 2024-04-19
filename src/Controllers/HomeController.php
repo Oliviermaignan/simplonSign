@@ -38,6 +38,9 @@ class HomeController
             $classesRepo = new ClassesRepository();
             $todayClasses = $classesRepo->getClassesByDay(new DateTime());
 
+
+            $promoClassCode = $classesRepo->getNowClassCode();
+
             if($isConnected){
                 $_SESSION['connected'] = true;
                 $_SESSION['user']['id'] = $user->getId();
@@ -47,6 +50,9 @@ class HomeController
                 $_SESSION['user']['activated'] = $user->getActivated();
                 $_SESSION['user']['role'] = $user->getRole();
                 $_SESSION['user']['promoName'] = $user->getPromoName();
+                if ($promoClassCode){
+                    $_SESSION['class']['code']=$promoClassCode;
+                }
             }
 
             include_once __DIR__  . "/../Views/dashboard.php";

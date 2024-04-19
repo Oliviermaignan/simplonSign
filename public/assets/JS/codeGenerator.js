@@ -28,6 +28,7 @@ let displayCodeContainerPM = document.querySelector('.displayCode.PM');
     }
 
     if(PMTeacherValidation){
+
         PMTeacherValidation.addEventListener('click', ()=>{
             appelFetchCreationCodePM();
         })

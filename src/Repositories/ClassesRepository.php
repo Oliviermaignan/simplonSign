@@ -55,7 +55,7 @@ class ClassesRepository
 
     public function createCodeForClass($promoId){
         $query = $this->Db->prepare ("
-                                        UPDATE b6_Classes
+                                        UPDATE b6_classes
                                         SET code = LPAD(10000 + FLOOR(RAND() * 99999), 5, '0')
                                         WHERE promo_id = :promo_id
                                         AND DATE(startTime) = CURDATE()

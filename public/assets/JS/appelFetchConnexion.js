@@ -1,6 +1,8 @@
 import { presenceValidationButton } from "./codeGenerator.js";
+import { disablePmButton } from "./disablePmButton.js";
 import { fetchDeconnexion } from "./fetchDeconnexion.js";
 import { studentPresenceValidationBtn } from "./studentPresenceValidation.js";
+
 export function appelFetchConnexion(){
     //recup des inputs
     let emailInput = document.getElementById('emailConnexionInput').value;
@@ -26,6 +28,7 @@ export function appelFetchConnexion(){
     .then(data => {
         if (data) {
             HTMLContainer.innerHTML = data;
+            disablePmButton()
             presenceValidationButton();
             fetchDeconnexion();
             studentPresenceValidationBtn();

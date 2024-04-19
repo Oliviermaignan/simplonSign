@@ -119,7 +119,7 @@ class ClassesController
                     echo $jsonOutput;
 
                 } else {
-                    $presenceStatusRepo->updateStatus (1, $id);
+                    $presenceStatusRepo->updateStatus (1, $id, $classId);
 
                 }
 

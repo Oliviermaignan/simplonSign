@@ -43,7 +43,12 @@ $noon = $noon->format('H');
                 echo 'signatures reccueillies';
             } 
             if ($class->getName() === 'PM' && $currentHour > $noon) {
+                if(!empty($_SESSION['class']['code'])){
+                    echo 'Code déjà généré';
+                } else {
                     echo 'Validation presence';
+                }
+                    
                 } else if ($class->getName() === 'PM') {
                     echo 'non disponible';
                 }

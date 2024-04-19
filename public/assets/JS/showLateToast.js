@@ -1,7 +1,6 @@
 export function lateToast(retard, numberOfLate){
     let isLate = retard;
     let howManyLate = numberOfLate;
-    console.log(howManyLate);
     let toastBody = document.querySelector('.toast-body');
     let toastHeader = document.querySelector('.toast-header');
     let toastHeaderText = document.querySelector('.toast-header strong');
@@ -24,7 +23,7 @@ export function lateToast(retard, numberOfLate){
         } 
         if (howManyLate===2){
 
-            img.src = '/assets/img/cake.png';
+            img.src = HOME_URL + '/assets/img/cake.png';
             img.style.width = '10%';
             toastHeader.classList.remove('bg-warning');
             toastHeader.classList.add('bg-danger');

@@ -27,5 +27,63 @@ class Database {
       return $this->Db;
     } 
 
+    function initialiserBDD()
+    {
+        if ($this->DBexiste()) {
+            return "La base de donnees exite";
+            die();
+        }
+
+        try {
+            $sql = file_get_contents(__DIR__ . "/../Migrations/simplonSign0.sql");
+            $this->Db->query($sql);
+
+
+            if ($this->MiseAJourConfig()) {
+                return "installation de la Base de Données terminée !";
+            }
+        } catch (PDOException $err) {
+            return "impossible de remplir la Base de données : " . $err->getMessage();
+        }
+    }
+
+    function DBexiste()
+    {
+
+        $existe = $this->Db->query('SHOW TABLES FROM ' . DB_NAME . ' LIKE \'b6_users\'')->fetch();
+        if ($existe !== false && $existe[0] == "b6_users") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private function MiseAJourConfig(): bool
+    {
+
+        $fconfig = fopen($this->config, 'w');
+
+        $contenu = "<?php
+        // lors de la mise en open source, remplacer les infos concernant la base de données.
+        
+        define('DB_HOST', '" . DB_HOST . "');
+        define('DB_NAME', '" . DB_NAME . "');
+        define('DB_USER', '" . DB_USER . "');
+        define('DB_PWD', '" . DB_PWD . "');
+        
+        define('HOME_URL', '" . HOME_URL . "');
+
+        // Ne pas toucher :
+        
+        define('DB_INITIALIZED', TRUE);";
+
+
+        if (fwrite($fconfig, $contenu)) {
+            fclose($fconfig);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
